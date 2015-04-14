@@ -1,0 +1,38 @@
+body {
+    background-color: #ECF5F5;
+    color:black;
+}
+.fullBg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+}
+
+#maincontent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 50;
+}
+
+#background {
+    opacity: .4;
+}
+
+.logo{
+    width: 12%;
+}
+
+.header h1 {
+    text-align: center;
+    color: white;
+}
+
+.headerBGColor {
+    background-color: #5C9BB2;
+}
+
+.form-group {
+    text-align: center;
+}
