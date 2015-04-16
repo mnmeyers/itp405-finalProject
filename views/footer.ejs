@@ -18,5 +18,10 @@
     $(window).load(function() {
         $("#background").fullBg();
     });
+    $('#link').click(function (e) {
+        $('#example').slideToggle();
+        e.preventDefault();
+    });
+    $('#tabs').tab();
 </script>
 </html>

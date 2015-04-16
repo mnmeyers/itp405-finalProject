@@ -1,6 +1,6 @@
 body {
     background-color: #ECF5F5;
-    color:black;
+    color:rgb(0, 44, 66);
 }
 .fullBg {
     position: absolute;
@@ -35,4 +35,27 @@ body {
 
 .form-group {
     text-align: center;
+}
+
+.createPlaylistForm {
+    width: 40%;
+    margin: auto;
+}
+
+.createPlaylistForm button {
+    width: 50%;
+    background-color:#5C9BB2;
+    border: none;
+    color: white;
+}
+
+.createPlaylistForm button:hover {
+    color: dimgray;
+}
+#example {
+    display:none;
+}
+
+iframe {
+    height: 4em;
 }

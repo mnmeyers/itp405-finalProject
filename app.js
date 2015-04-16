@@ -34,6 +34,13 @@ app.get('/profile', function(req, res){
     });
 });
 
+app.get('/login', function(req, res){
+    console.log('login view rendered');
+    res.render('login', {
+        title: 'Login'
+    });
+});
+
 app.get('/playlist', function(req, res){
     console.log('playlist view rendered');
     res.render('createPlaylist', {
