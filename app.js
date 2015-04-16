@@ -1,7 +1,11 @@
 var express = require('express');
 var q = require('q');
 var ejs = require('ejs');
-var User = require('./models/User');
+//var Sequelize = require('sequelize');
+//var sequelize = require('./config/sequelize');
+//var Playlist = require('./models/Playlist');
+var PlaylistController = require('./controllers/PlaylistController');
+
 
 //take this out later
 
@@ -23,12 +27,50 @@ app.get('/', function(req, res){
     });
 });
 
-app.get('/test', function(req, res){
-    console.log('test view rendered');
-    res.render('test', {
-        title: 'Test'
+app.get('/profile', function(req, res){
+    console.log('profile view rendered');
+    res.render('profile', {
+        title: 'Profile'
     });
 });
+
+app.get('/playlist', function(req, res){
+    console.log('playlist view rendered');
+    res.render('createPlaylist', {
+        title: 'Create Playlist'
+    });
+});
+
+
+app.get('/callback', function(req, res){
+    console.log('callback view rendered');
+    res.render('callback', {
+        title: 'callback'
+    });
+});
+
+//app.get('/playlists', function(req, res){
+//    console.log('playlists view rendered');
+//    //Playlist.findAll({
+//    //    where: {
+//    //        mood_name: {
+//    //            like: '%' + req.query.mood_name + '%'
+//    //        },
+//    //        playlist_name:{
+//    //
+//    //        }
+//    //    }
+//        //order: 'playlist_name ASC'
+//    Playlist.sequelize.query('select playlist_name, playlists.id, mood_name from playlists, moods where moods.id = playlists.moods_id and mood_name like ' + '\'' + '%'  + req.query.mood_name + '%' + '\'',
+//        { type: sequelize.QueryTypes.SELECT }).then(function (results) {
+//            console.log(results);
+//    }).then(function(results){
+//        res.render('playlists', {
+//            playlists: results
+//        });
+//    });
+//});
+app.get('/playlists', PlaylistController.playlists);
 
 
 

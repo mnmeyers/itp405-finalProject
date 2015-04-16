@@ -1,0 +1,22 @@
+</div>
+</div>
+<!-- /#page-content-wrapper -->
+
+</div>
+</body>
+<!--the thing below doesn't work...?-->
+<!--<script src="../bower_components/jquery/src/jquery.js"></script>-->
+<script src="js/jquery.js"></script>
+<script src="plugins/jquery.fullbg.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- Menu Toggle Script -->
+<script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    $(window).load(function() {
+        $("#background").fullBg();
+    });
+</script>
+</html>
