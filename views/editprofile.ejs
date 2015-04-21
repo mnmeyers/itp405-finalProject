@@ -1,9 +1,9 @@
-<div class="tab-pane" id="blue">
+<div class="tab-pane" id="blue" data-user-id="<%=user.id%>">
     <div class="row">
         <!-- left column -->
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="text-center">
-                <img src="http://lorempixel.com/200/200/people/9/" class="avatar img-circle img-thumbnail" alt="avatar">
+                <img src="http://lorempixel.com/200/200/people/9/" id="avatar2" class="avatar img-circle img-thumbnail" alt="avatar">
                 <h6>Upload a different photo...</h6>
                 <input type="file" class="text-center center-block well well-sm">
             </div>
@@ -70,3 +70,22 @@
 </div>
 </div>
 <% include footer %>
+<script src="http://connect.soundcloud.com/sdk.js"></script>
+<script>
+    $(function(){
+    //    GET USER_ID FROM PAGE;
+        var user_id = $("*[data-user-id]").data().userId;
+        var url = "https://api.soundcloud.com/users/"+ user_id + ".json?client_id=da017f641a7d7c3ba80e192b87997299";
+        $.ajax({
+            url: url,
+            method: 'GET',
+            dataType: 'json',
+            contentType: 'application/json'
+        }).done(function(res){
+            console.log(res);
+            $('#avatar2').attr('src', res.avatar_url);
+
+        });
+
+    });
+</script>

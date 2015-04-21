@@ -1,15 +1,14 @@
 var Sequelize = require('sequelize');
 var sequelize = require('./../config/sequelize');
-var User = sequelize.define('User', {
-    username: {
-        field: 'username',
-        type: Sequelize.STRING
-    },
-    password: {
-        field: 'password',
-        type: Sequelize.STRING
+var Playlist = require('./Playlist');
+var User = sequelize.define('user', {
+    id: {
+        field: 'id',
+        type: Sequelize.INTEGER
     }
 }, {
     timestamps: false
 });
-module.exports = User;//put this in the model
+User.hasMany(Playlist);
+Playlist.belongsTo(User);
+module.exports = User;

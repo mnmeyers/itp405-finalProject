@@ -20,7 +20,26 @@
     // initiate auth popup
     SC.connect(function() {
         SC.get('/me', function(me) {
-            alert('Hello, ' + me.username);
+//            console.log(me);
+//            alert('Hello, ' + me.username);
+////            send return value of soundcloud api call to your own servers to update your local user record.
+
+            $.ajax({
+                url:"/login",
+                method: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(me)
+            }).done(function(res, err){
+                console.log("RUCKING YES!!!");
+                return window.location = "/";
+            }).fail(function(err) {
+                console.log('y u no work', err);
+            });
         });
+//        SC.put('/me', {
+//                    user: { description: 'I am using the SoundCloud API!' }
+//                }
+//        );
     });
 </script>
