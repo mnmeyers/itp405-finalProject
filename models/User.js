@@ -2,24 +2,44 @@ var Sequelize = require('sequelize');
 var sequelize = require('./../config/sequelize');
 var Playlist = require('./Playlist');
 var User = sequelize.define('user', {
-    id: {
-        field: 'id',
-        type: Sequelize.INTEGER
+    twitter: {
+      field: 'twitter',
+        type: Sequelize.STRING,
+        validate: {
+            notContains: 'script',
+            len: [2,20],
+            isAlphanumeric: true
+        }
     },
-    first_name: {
-      field: 'first_name',
-        type: Sequelize.STRING
-    },
-    last_name: {
-        field: 'last_name',
-        type: Sequelize.STRING
+    facebook: {
+        field: 'facebook',
+        type: Sequelize.STRING,
+        validate: {
+            notContains: 'script',
+            len: [2,20],
+            isAlphanumeric: true
+        }
     },
     email: {
         field: 'email',
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+            notContains: 'script',
+            len: [2,20],
+            isEmail: true
+        }
+    },
+    description: {
+        field: 'description',
+        type: Sequelize.STRING,
+        validate: {
+            notContains: 'script',
+            len: [2,200],
+        }
     }
 }, {
-    timestamps: false
+    timestamps: false,
+    underscored: true
 });
 User.hasMany(Playlist);
 Playlist.belongsTo(User);

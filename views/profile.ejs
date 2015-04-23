@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <div id="content">
             <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
-                <li class="active"><a href="#red" data-toggle="tab">User</a></li>
+                <li class="active"><a href="#red" data-toggle="tab" id="first_name"></a></li>
                 <li><a href="#blue" data-toggle="tab">Edit Profile</a></li>
             </ul>
             <div id="my-tab-content" class="tab-content">
@@ -17,8 +17,8 @@
                             <div class="profileInfo">
                                 <span class="profileStuff">City: </span><span id="city"></span><br>
                                 <span class="profileStuff">Country: </span><span id="country"></span><br>
-                                <span class="profileStuff">Email: </span><span id="email"></span><br>
-                                <span class="profileStuff">Bio: </span><span id="description"></span><br>
+                                <span class="profileStuff">Email: </span><span id="email"><%=user.email%></span><br>
+                                <span class="profileStuff">Bio: </span><span id="bio"><%=user.description%></span><br>
                                 <a class="profileStuff" href="" id="permalink_url">SoundCloud Profile <i class="fa fa-soundcloud fa-lg"></i></a>
                             </div>
                         </div>
@@ -26,7 +26,13 @@
 
 
                 <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+                    <% if ( sessionFlash && sessionFlash.message) { %>
 
+                    <div class="alert alert-<%= sessionFlash.type %> alert-dismissable">
+                        <a class="panel-close close" data-dismiss="alert">×</a>
+                        <%= sessionFlash.message %>
+                    </div>
+                    <% } %>
                     <h3>Playlists</h3>
                     <table class="table">
                         <thead>

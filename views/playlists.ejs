@@ -1,9 +1,9 @@
 <% include header %>
 
-<span class="header"><h1><span class="headerBGColor"><%= playlists[0].mood_name %> Playlists</span></h1></span>
+<span class="header"><h1><span class="headerBGColor">  <% if (playlists.length > 0) { %><%= playlists[0].mood_name %> Playlist<% } else { %> Playlists<% }%></span></h1></span>
 <div class="row">
     <div class="col-lg-12">
-
+        <% if (playlists.length > 0) { %>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -12,14 +12,22 @@
             </tr>
             </thead>
             <tbody>
+
             <% playlists.forEach(function(playlist) { %>
             <tr>
                 <td><%= playlist.playlist_name %></td>
                 <td><%- playlist.playlist_url %></td>
             </tr>
             <% }); %>
+
             </tbody>
         </table>
+        <% } else { %>
+        <div class="alert alert-info alert-dismissable">
+            <p>Sorry, no playlists matched your mood! <a href="/playlist">Create a playlist!</a></p>
+
+        </div>
+        <% }%>
 
     </div>
 </div>
