@@ -6,16 +6,20 @@ var User = sequelize.define('user', {
         field: 'id',
         type: Sequelize.INTEGER
     },
-    first_name: {
-      field: 'first_name',
+    twitter: {
+      field: 'twitter',
         type: Sequelize.STRING
     },
-    last_name: {
-        field: 'last_name',
+    facebook: {
+        field: 'facebook',
         type: Sequelize.STRING
     },
     email: {
         field: 'email',
+        type: Sequelize.STRING
+    },
+    description: {
+        field: 'description',
         type: Sequelize.STRING
     }
 }, {

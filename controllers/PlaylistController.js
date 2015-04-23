@@ -14,7 +14,24 @@ module.exports = {
                     playlists: results
                 });
             });
+        //Playlist.create({
+        //    playlist_url: {
+        //        like: req.query.playlist_url
+        //    },
+        //
+        //    mood_name: {
+        //        like: req.query.mood_name
+        //    },
+        //    playlist_name: {
+        //        like: req.query.playlist_name
+        //    }
+        //
+        //   }).then(function() {
+        //    // you can now access the newly created task via the variable task
+        //    res.render('createPlaylists');
+        //})
     },
+
     create: function(req, res) {
 
     }

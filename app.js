@@ -1,5 +1,5 @@
 var express = require('express');
-var q = require('q');
+//var q = require('q');
 var ejs = require('ejs');
 var bodyParser = require('body-parser');
 var session = require('express-session');
@@ -9,6 +9,7 @@ var session = require('express-session');
 var PlaylistController = require('./controllers/PlaylistController');
 var UserController = require('./controllers/UserController');
 var User = require('./models/User');
+var Playlist = require('./models/Playlist');
 
 
 
@@ -18,12 +19,13 @@ var app = express();
 app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
-app.use(session({ secret: 'keyboard cat', saveUninitialized: true, resave: true}));
+app.use(session({ secret: 'keyboard cat', saveUninitialized: true, resave: true, maxAge:3600000}));
 app.use('/bower_components',  function(){
   //console.log("hello i got hit");
 });//express.static(__dirname + '/bower_components'));
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //routes:
 app.get('/', function(req, res){
@@ -48,9 +50,9 @@ app.get('/profile', function(req, res){
     if(!req.session.user_id){
         return res.redirect('/login');
     }
-    console.log('helooooooooooo', req.session.user_id);
+    //console.log('helooooooooooo', req.session.user_id);
     User.find(req.session.user_id).then(function(user){
-        console.log('ANDREW ROCKS MY SOCKS', user);
+        //console.log('ANDREW ROCKS MY SOCKS', user);
         console.log('profile view rendered');
         res.render('profile', {
             title: 'Profile',
@@ -59,6 +61,60 @@ app.get('/profile', function(req, res){
     });
 
 });
+
+app.post('/profile', function(req, res){
+    if(!req.session.user_id){
+        return res.redirect('/login');
+    }
+    User.update({
+        email: req.email,
+        description: req.query.description,
+        facebook: req.query.facebook,
+        twitter: req.query.twitter
+    }, {
+        where: {
+            id: req.body.id
+        }
+    }).then(function(){
+    console.log('what is happening', req.email);
+    User.find(req.session.user_id).then(function(user){
+        res.render('profile', {
+            title: 'Profile',
+            user: user
+        });
+    });
+
+    });
+
+});
+
+//app.post('/profile', UserController.users);
+
+//this didn't work
+//app.post('/profile', function(req, res){
+//    if(!req.session.user_id){
+//        return res.redirect('/login');
+//    }
+//    User.find(req.session.user_id)
+//        .then(function(){
+//            User.update({
+//                email: req.email,
+//                description: req.query.description,
+//                facebook: req.query.facebook,
+//                twitter: req.query.twitter
+//            }, {
+//                where: {
+//                    id: req.body.id
+//                }
+//            })
+//                .then(function(user){
+//                    res.render('profile', {
+//                        title: 'Profile',
+//                        user: user
+//                    });
+//                });
+//    });
+//});
 
 app.get('/login', function(req, res){
     console.log('login view rendered');
@@ -98,6 +154,29 @@ app.get('/playlist', function(req, res){
     res.render('createPlaylist', {
         title: 'Create Playlist'
     });
+});
+
+app.post('/playlist', function(req, res){
+    if(!req.session.user_id){
+        return res.redirect('/login');
+    }
+    console.log('playlist view rendered');
+    Playlist.create({
+        playlist_url: {
+            like: req.query.playlist_url
+        },
+
+        mood_name: {
+            like: req.query.mood_name
+        },
+        playlist_name: {
+            like: req.query.playlist_name
+        }
+
+    }).then(function() {
+        // you can now access the newly created task via the variable task
+        res.render('createPlaylist');
+    })
 });
 
 

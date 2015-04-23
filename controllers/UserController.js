@@ -20,8 +20,40 @@ module.exports = {
             res.status(200).send({message: "humm hum hum"});
             //res.write()
         });
-        User.update()
+        //User.update({
+        //    email: req.email,
+        //    description: req.query.description,
+        //    facebook: req.query.facebook,
+        //    twitter: req.query.twitter
+        //}, {
+        //    where: {
+        //        id: req.body.id
+        //        }
+        //    });
+        //console.log('what is happening', req.query);
 
+        //if(!req.session.user_id){
+        //    return res.redirect('/login');
+        //}
+        //User.update({
+        //    email: req.email,
+        //    description: req.query.description,
+        //    facebook: req.query.facebook,
+        //    twitter: req.query.twitter
+        //}, {
+        //    where: {
+        //        id: req.body.id
+        //    }
+        //}).then(function(){
+        //    console.log('what is happening', req.email);
+        //    User.find(req.session.user_id).then(function(user){
+        //        res.render('profile', {
+        //            title: 'Profile',
+        //            user: user
+        //        });
+        //    });
+        //
+        //});
     },
     create: function(req, res) {
 //what goes here?

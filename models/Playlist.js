@@ -1,14 +1,22 @@
 var Sequelize = require('sequelize');
 var sequelize = require('./../config/sequelize');
 var Playlist = sequelize.define('playlist', {
+    id: {
+        field: 'id',
+        type: Sequelize.INTEGER
+    },
     playlist_name: {
         field: 'playlist_name',
         type: Sequelize.STRING
+    },
+    playlist_url: {
+        field: 'playlist_url',
+        type: Sequelize.STRING
+    },
+    moods_id: {
+        field: 'moods_id',
+        type: Sequelize.INTEGER
     }
-    //mood_name: {
-    //    field: 'mood_name',
-    //    type: Sequelize.STRING
-    //}
 }, {
     timestamps: false
 });
