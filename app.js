@@ -67,23 +67,28 @@ app.get('/login', function(req, res){
     });
 });
 
-app.post('/login', function(req, res){
-    var user_id = req.body.id;
-    //take out the other user.findorcreate in userController
-    User.findOrCreate({
-        where: {
-            id: req.body.id
-        }
-    }).spread(function(user, results){
-       console.log("\n\n\nFOUNDA USER:", user);
-        req.session.user_id = user_id;
-        res.type('json');
-        res.status(200).send({message: "humm hum hum"});
-        //res.write()
-    });
-});
+//app.post('/login', function(req, res){
+//    var user_id = req.body.id;//took out .id
+//    //take out the other user.findorcreate in userController
+//    User.findOrCreate({
+//        where: {
+//            id: req.body.id
+//        }
+//        //first_name: req.body.first_name,
+//        //last_name: req.body.last_name
+//        //wouldn't this overwrite every time you log in? so even if you changed ur fname
+//        //and lname it would still revert back once you log in again
+//    }).spread(function(user, results){
+//       console.log("\n\n\nFOUNDA USER:", user);
+//        req.session.user_id = user_id;
+//        res.type('json');
+//        res.status(200).send({message: "humm hum hum"});
+//        //res.write()
+//    });
+//});
 
-app.post('/users/:id', UserController.users);
+app.post('/login', UserController.users);
+//app.post('/users/:id', UserController.users);
 
 app.get('/playlist', function(req, res){
     if(!req.session.user_id){

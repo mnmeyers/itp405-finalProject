@@ -59,3 +59,13 @@ body {
 iframe {
     height: 4em;
 }
+
+.profileInfo {
+    text-align:left;
+}
+
+.profileStuff {
+    color: rgb(31, 108, 147);
+    font-size: 1.4em;
+    line-height: 1.4em;
+}
