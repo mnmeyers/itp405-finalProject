@@ -2,10 +2,6 @@ var Sequelize = require('sequelize');
 var sequelize = require('./../config/sequelize');
 var Playlist = require('./Playlist');
 var User = sequelize.define('user', {
-    id: {
-        field: 'id',
-        type: Sequelize.INTEGER
-    },
     twitter: {
       field: 'twitter',
         type: Sequelize.STRING
@@ -23,7 +19,8 @@ var User = sequelize.define('user', {
         type: Sequelize.STRING
     }
 }, {
-    timestamps: false
+    timestamps: false,
+    underscored: true
 });
 User.hasMany(Playlist);
 Playlist.belongsTo(User);

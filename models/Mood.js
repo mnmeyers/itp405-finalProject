@@ -2,17 +2,15 @@ var Sequelize = require('sequelize');
 var sequelize = require('./../config/sequelize');
 var Playlist = require('./Playlist');
 var Mood = sequelize.define('mood', {
-    id: {
-        field: 'id',
-        type: Sequelize.INTEGER
-    },
     mood_name: {
         field: 'mood_name',
         type: Sequelize.STRING
     }
 }, {
-    timestamps: false
+    timestamps: false,
+    underscored: true
 });
 Mood.hasMany(Playlist);
-Playlist.belongsTo(Mood, {foreignkey: 'moods_id'});
+Playlist.belongsTo(Mood);
+console.log(Mood);
 module.exports = Mood;

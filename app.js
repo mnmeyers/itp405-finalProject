@@ -10,6 +10,7 @@ var PlaylistController = require('./controllers/PlaylistController');
 var UserController = require('./controllers/UserController');
 var User = require('./models/User');
 var Playlist = require('./models/Playlist');
+var Mood = require('./models/Mood');
 
 
 
@@ -67,13 +68,13 @@ app.post('/profile', function(req, res){
         return res.redirect('/login');
     }
     User.update({
-        email: req.email,
-        description: req.query.description,
-        facebook: req.query.facebook,
-        twitter: req.query.twitter
+        email: req.body.email,
+        description: req.body.description,
+        facebook: req.body.facebook,
+        twitter: req.body.twitter
     }, {
         where: {
-            id: req.body.id
+            id: req.session.user_id
         }
     }).then(function(){
     console.log('what is happening', req.email);
@@ -160,25 +161,17 @@ app.post('/playlist', function(req, res){
     if(!req.session.user_id){
         return res.redirect('/login');
     }
-    console.log('playlist view rendered');
     Playlist.create({
-        playlist_url: {
-            like: req.query.playlist_url
-        },
-
-        mood_name: {
-            like: req.query.mood_name
-        },
-        playlist_name: {
-            like: req.query.playlist_name
-        }
-
+        playlist_url: req.body.playlist_url,
+        playlist_name: req.body.playlist_name
+    });
+    Mood.create({
+        mood_name: req.body.mood_name
     }).then(function() {
         // you can now access the newly created task via the variable task
         res.render('createPlaylist');
     })
 });
-
 
 app.get('/callback', function(req, res){
     console.log('callback view rendered');
