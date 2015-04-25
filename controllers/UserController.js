@@ -14,7 +14,7 @@ module.exports = {
             //wouldn't this overwrite every time you log in? so even if you changed ur fname
             //and lname it would still revert back once you log in again
         }).spread(function(user, results){
-            console.log("\n\n\nFOUNDA USER:", user);
+            //console.log("\n\n\nFOUNDA USER:", user);
             req.session.user_id = user_id;
             res.type('json');
             res.status(200).send({message: "humm hum hum"});

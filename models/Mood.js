@@ -12,5 +12,5 @@ var Mood = sequelize.define('mood', {
 });
 Mood.hasMany(Playlist);
 Playlist.belongsTo(Mood);
-console.log(Mood);
+//console.log(Mood);
 module.exports = Mood;

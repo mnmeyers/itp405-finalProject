@@ -11,8 +11,14 @@ var Playlist = sequelize.define('playlist', {
     },
     mood_id: {
         field: 'mood_id',
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: 'moods', // <<< Note, its table's name, not object name
+        referencesKey: 'id' // <<< Note, its a column name
     }
+    //mood_id: {
+    //    field: 'mood_id',
+    //    type: Sequelize.INTEGER
+    //}
 }, {
     timestamps: false,
     underscored: true
@@ -33,5 +39,5 @@ var Playlist = sequelize.define('playlist', {
 //    { type: sequelize.QueryTypes.SELECT }).then(function (results) {
 //   console.log(results);
 //});
-console.log(Playlist);
+//console.log(Playlist);
 module.exports = Playlist;

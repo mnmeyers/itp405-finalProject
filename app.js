@@ -3,6 +3,7 @@ var express = require('express');
 var ejs = require('ejs');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var cookieParser = require('cookie-parser');
 //var Sequelize = require('sequelize');
 //var sequelize = require('./config/sequelize');
 //var Playlist = require('./models/Playlist');
@@ -13,7 +14,6 @@ var Playlist = require('./models/Playlist');
 var Mood = require('./models/Mood');
 
 
-
 var app = express();
 
 
@@ -21,12 +21,18 @@ app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
 app.use(session({ secret: 'keyboard cat', saveUninitialized: true, resave: true, maxAge:3600000}));
-app.use('/bower_components',  function(){
-  //console.log("hello i got hit");
-});//express.static(__dirname + '/bower_components'));
-
+app.use('/bower_components',  function(){});//breaks without this empty function...
+//express.static(__dirname + '/bower_components'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(function (req, res, next) {
+    // Set to true if you need the website to include cookies in the requests sent to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', true);
+    // Pass to next layer of middleware
+    next();
+});
+app.use(cookieParser());
 
 //routes:
 app.get('/', function(req, res){
