@@ -203,12 +203,21 @@ app.post('/playlist', function(req, res){
     Playlist.create({
         playlist_url: req.body.playlist_url,
         playlist_name: req.body.playlist_name
+        //mood_id: Mood.id
     });
-    Mood.create({
-        mood_name: req.body.mood_name
+    Mood.findOrCreate({
+        mood_name: req.body.mood_name,
+        where: {
+            mood_name: {
+                $iLike: req.body.mood_name}
+        }
+        //where: {
+        //    mood_name: req.body.mood_name
+        //}
     }).then(function() {
         // you can now access the newly created task via the variable task
-        res.render('createPlaylist');
+        res.render('createPlaylist',{
+        });
     })
 });
 

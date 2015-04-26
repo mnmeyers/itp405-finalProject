@@ -4,7 +4,14 @@ var Playlist = require('./Playlist');
 var Mood = sequelize.define('mood', {
     mood_name: {
         field: 'mood_name',
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+            allowNull: false,
+            notEmpty: true,
+            notContains: 'script',
+            len: [3,20],
+            isAlpha: true
+        }
     }
 }, {
     timestamps: false,

@@ -69,3 +69,7 @@ iframe {
     font-size: 1.4em;
     line-height: 1.4em;
 }
+
+.alert{
+    text-align: center;
+}

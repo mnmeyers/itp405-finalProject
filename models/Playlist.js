@@ -3,11 +3,22 @@ var sequelize = require('./../config/sequelize');
 var Playlist = sequelize.define('playlist', {
     playlist_name: {
         field: 'playlist_name',
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+            allowNull: false,
+            notEmpty: true,
+            isAlphanumeric: true
+        }
     },
     playlist_url: {
         field: 'playlist_url',
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        validate: {
+            allowNull: false,
+            notEmpty: true,
+            notContains: 'script',
+            len: [185,195]
+        }
     },
     mood_id: {
         field: 'mood_id',
