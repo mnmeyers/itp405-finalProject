@@ -26,7 +26,13 @@
 
 
                 <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+                    <% if ( sessionFlash && sessionFlash.message) { %>
 
+                    <div class="alert alert-<%= sessionFlash.type %> alert-dismissable">
+                        <a class="panel-close close" data-dismiss="alert">×</a>
+                        <%= sessionFlash.message %>
+                    </div>
+                    <% } %>
                     <h3>Playlists</h3>
                     <table class="table">
                         <thead>
