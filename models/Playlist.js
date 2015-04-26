@@ -5,7 +5,6 @@ var Playlist = sequelize.define('playlist', {
         field: 'playlist_name',
         type: Sequelize.STRING,
         validate: {
-            allowNull: false,
             notEmpty: true,
             isAlphanumeric: true
         }
@@ -14,10 +13,9 @@ var Playlist = sequelize.define('playlist', {
         field: 'playlist_url',
         type: Sequelize.STRING,
         validate: {
-            allowNull: false,
             notEmpty: true,
-            notContains: 'script',
-            len: [185,195]
+            notContains: 'script'
+            //len: [185,195]
         }
     },
     mood_id: {
