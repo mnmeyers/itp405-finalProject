@@ -7,8 +7,6 @@ var User = sequelize.define('user', {
         type: Sequelize.STRING,
         validate: {
             notContains: 'script',
-            len: [2,20],
-            isAlphanumeric: true
         }
     },
     facebook: {
@@ -16,8 +14,6 @@ var User = sequelize.define('user', {
         type: Sequelize.STRING,
         validate: {
             notContains: 'script',
-            len: [2,20],
-            isAlphanumeric: true
         }
     },
     email: {
@@ -25,7 +21,6 @@ var User = sequelize.define('user', {
         type: Sequelize.STRING,
         validate: {
             notContains: 'script',
-            len: [2,20],
             isEmail: true
         }
     },
@@ -33,8 +28,7 @@ var User = sequelize.define('user', {
         field: 'description',
         type: Sequelize.STRING,
         validate: {
-            notContains: 'script',
-            len: [2,200]
+            notContains: 'script'
         }
     }
 }, {

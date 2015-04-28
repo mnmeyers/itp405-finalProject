@@ -9,7 +9,6 @@ var Mood = sequelize.define('mood', {
         validate: {
             notEmpty: true,
             notContains: 'script'
-            //len: [3,20],
         }
     }
 }, {
@@ -18,5 +17,4 @@ var Mood = sequelize.define('mood', {
 });
 Mood.hasOne(Playlist);
 Playlist.belongsTo(Mood);
-//console.log(Mood);
 module.exports = Mood;

@@ -6,18 +6,31 @@ var Sequelize = require('sequelize');
 var sequelize = require('./../config/sequelize');
 var Mood = require('./../models/Mood');
 module.exports = {
+    view:  function(req, res, err) {
+        if(!req.session.user_id){
+            return res.redirect(301, '/login');
+        }
+        console.log('playlist view rendered');
+        res.render('createPlaylist', {
+            title: 'Create Playlist'
+        });
+    },
+
     playlists: function(req, res, err) {
-        Playlist.sequelize.query('select playlist_name, playlists.id, playlist_url, mood_name from playlists, moods where moods.id = playlists.mood_id and mood_name like ' + '\'' + '%'  + req.query.mood_name + '%' + '\'',
-            { type: sequelize.QueryTypes.SELECT }
-        ).then(function(results){
+        Playlist.sequelize.query('select playlist_name, playlists.id, playlist_url, mood_name from playlists, moods where moods.id = playlists.mood_id and mood_name like ?',
+            {
+                replacements: ['%' + req.query.mood_name + '%'],
+                type: sequelize.QueryTypes.SELECT
+
+            }).then(function (results) {
                 res.render('playlists', {
                     playlists: results
                 });
-            }, function(err){
-                res.render();
+
+            }).done(function (err) {
+                console.log(err);
             });
     },
-
     create: function(req, res) {
         if(!req.session.user_id){
             return res.redirect(301, '/login');
@@ -48,7 +61,7 @@ module.exports = {
         }).fail(function(error){
 
 
-            console.log('\n\n\n\n\n yayyyyyy we fucking faillled \n\n\n\n\n\n');
+            console.log('\n\n\n\n\n yayyyyyy we faillled \n\n\n\n\n\n');
             console.log(error);
             req.session.sessionFlash = {
                 type: 'danger',
