@@ -53,7 +53,7 @@ module.exports = {
             });
             req.session.sessionFlash = {
                 type: 'success',
-                message: 'You successfully created a playlist!!'
+                message: 'You successfully created a playlist!'
             };
             res.redirect(301, '/playlist');
         }).fail(function(error){

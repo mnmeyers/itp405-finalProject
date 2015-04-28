@@ -31,12 +31,6 @@ module.exports = {
     update: function(req, res) {
         if(!req.session.user_id){
             return res.redirect(301, '/login');
-        } else {
-            req.session.sessionFlash = {
-                type: 'success',
-                message: 'You have successfully edited your profile info!'
-            };
-            res.redirect(301, '/profile');
         }
         User.update({
             email: req.body.email,
@@ -47,7 +41,23 @@ module.exports = {
             where: {
                 id: req.session.user_id
             }
-        }).then(function(){
+        }).spread(function(user, updated){
+            req.session.sessionFlash = {
+                type: 'success',
+                message: 'You successfully updated your profile!'
+            };
+            res.redirect(301, '/profile');
+        }).fail(function(error){
+            console.log('\n\n\n\n\n yayyyyyy we faillled \n\n\n\n\n\n');
+            console.log(error);
+            req.session.sessionFlash = {
+                type: 'danger',
+                message: 'You must put in a proper email!'
+            };
+            res.redirect(301, '/profile');
+
+        })
+            .then(function(){
             User.find(req.session.user_id).then(function(user){
                 res.render('profile', {
                     title: 'Profile',
