@@ -4,9 +4,10 @@ var Playlist = sequelize.define('playlist', {
     playlist_name: {
         field: 'playlist_name',
         type: Sequelize.STRING,
+        allowNull: false,
         validate: {
-            notEmpty: true,
-            isAlphanumeric: true
+            notEmpty: true
+            //isAlphanumeric: true
         }
     },
     playlist_url: {

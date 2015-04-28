@@ -34,7 +34,7 @@ var User = sequelize.define('user', {
         type: Sequelize.STRING,
         validate: {
             notContains: 'script',
-            len: [2,200],
+            len: [2,200]
         }
     }
 }, {

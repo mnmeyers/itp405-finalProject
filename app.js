@@ -14,18 +14,19 @@ var User = require('./models/User');
 var Playlist = require('./models/Playlist');
 var Mood = require('./models/Mood');
 var sessionStore = new session.MemoryStore;
+//var errors = new ValidationError('you suck!', [{notEmpty: true}]);
 
 var app = express();
 
 
 app.set('view engine', 'ejs');
 
-app.use(express.static(__dirname + '/public'));
-//app.use(session({
-//    secret: 'keyboard cat',
-//    saveUninitialized: true,
-//    resave: true,
-//    maxAge:3600000}));
+app.use(express.static(__dirname + '/public', {maxAge: 21600000}));
+app.use(session({
+    secret: 'keyboard cat',
+    saveUninitialized: true,
+    resave: true,
+    maxAge:3600000}));
 app.use('/bower_components',  function(){});//breaks without this empty function...
 //express.static(__dirname + '/bower_components'));
 app.use(bodyParser.json());
@@ -38,14 +39,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //    next();
 //});
 //app.use(cookieParser());
-app.use(cookieParser('secret'));
-app.use(session({
-    cookie: { maxAge: 3600000 },
-    store: sessionStore,
-    saveUninitialized: true,
-    resave: 'true',
-    secret: 'secret'
-}));
+app.use(cookieParser());
+//app.use(session({
+//    cookie: { maxAge: 21600000 },
+//    //store: sessionStore,
+//    saveUninitialized: true,
+//    resave: 'true',
+//    secret: 'secret'
+//}));
 app.use(flash());
 
 // Custom flash middleware -- from Ethan Brown's book, 'Web Development with Node & Express'
@@ -190,33 +191,42 @@ app.get('/playlist', function(req, res){
     });
 });
 
-app.post('/playlist', function(req, res){
-    if(!req.session.user_id){
-        return res.redirect(301, '/login');
-    } else {
-        req.session.sessionFlash = {
-            type: 'success',
-            message: 'You have successfully created a playlist!'
-        };
-        res.redirect(301, '/playlist');
-    }
-    Playlist.create({
-        playlist_url: req.body.playlist_url,
-        playlist_name: req.body.playlist_name
-       // mood_id: Mood.id
-    });
-    Mood.findOrCreate({
-        mood_name: req.body.mood_name,
-        where: {
-            mood_name: req.body.mood_name
-        }
+app.post('/playlist', PlaylistController.create);
+    //if(!req.session.user_id){
+    //    return res.redirect(301, '/login');
+    //}
+    //
+    //
+    //Mood.findOrCreate({
+    //    mood_name: req.body.mood_name,
+    //    where: {
+    //        mood_name: req.body.mood_name
+    //    }
+    //}).spread(function(mood, created) {
+    //    console.log("\n\n MOOOOOOOOD:");
+    //    console.log(mood);
+    //    console.log("\n\n MOOD ID>");
+    //    console.log(mood.id);
+    //
+    //    Playlist.create({
+    //        playlist_url: req.body.playlist_url,
+    //        playlist_name: req.body.playlist_name,
+    //        mood_id: mood.id
+    //    });
+    //
+    //}).fail(function(error){
+    //
+    //
+    //    console.log('\n\n\n\n\n yayyyyyy we fucking faillled \n\n\n\n\n\n');
+    //    console.log(error);
+    //    req.session.sessionFlash = {
+    //        type: 'danger',
+    //        message: 'You must fill out all the fields!'
+    //    };
+    //    res.redirect(301, '/playlist');
+    //
+    //});
 
-    }).then(function() {
-        // you can now access the newly created task via the variable task
-        res.render('createPlaylist',{
-        });
-    })
-});
 
 app.get('/callback', function(req, res){
     console.log('callback view rendered');
