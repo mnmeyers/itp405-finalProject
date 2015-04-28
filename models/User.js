@@ -6,14 +6,14 @@ var User = sequelize.define('user', {
       field: 'twitter',
         type: Sequelize.STRING,
         validate: {
-            notContains: 'script',
+            notContains: 'script'
         }
     },
     facebook: {
         field: 'facebook',
         type: Sequelize.STRING,
         validate: {
-            notContains: 'script',
+            notContains: 'script'
         }
     },
     email: {

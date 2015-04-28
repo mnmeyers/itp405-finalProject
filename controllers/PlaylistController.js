@@ -1,6 +1,3 @@
-/**
- * Created by mmeyers on 4/16/15.
- */
 var Playlist = require('./../models/Playlist');
 var Sequelize = require('sequelize');
 var sequelize = require('./../config/sequelize');
@@ -51,7 +48,8 @@ module.exports = {
             Playlist.create({
                 playlist_url: req.body.playlist_url,
                 playlist_name: req.body.playlist_name,
-                mood_id: mood.id
+                mood_id: mood.id,
+                user_id: req.session.user_id
             });
             req.session.sessionFlash = {
                 type: 'success',
