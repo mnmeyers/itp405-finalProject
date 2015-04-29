@@ -66,7 +66,7 @@ app.get('/logout', function(req, res){
     res.redirect(301, "/");
 });
 
-<<<<<<< HEAD
+
 app.post('/playlist', function(req, res){
     if(!req.session.user_id){
         return res.redirect(301, '/login');
@@ -94,9 +94,8 @@ app.post('/playlist', function(req, res){
         });
     })
 });
-=======
+
 app.get('/profile', UserController.get);
->>>>>>> 3f6bd4e... cleaning up started
 
 app.post('/profile', UserController.update);
 
