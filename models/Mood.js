@@ -7,9 +7,7 @@ var Mood = sequelize.define('mood', {
         type: Sequelize.STRING,
         validate: {
             notEmpty: true,
-            notContains: 'script',
-            //len: [3,20],
-            isAlpha: true
+            notContains: 'script'
         }
     }
 }, {
@@ -18,5 +16,4 @@ var Mood = sequelize.define('mood', {
 });
 Mood.hasMany(Playlist, { foreignKey: 'mood_id' });
 Playlist.belongsTo(Mood);
-//console.log(Mood);
 module.exports = Mood;
