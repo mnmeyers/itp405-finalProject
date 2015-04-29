@@ -37,6 +37,7 @@ module.exports = {
                 mood_name: req.body.mood_name
             }
         }).spread(function(mood, created) {
+            console.log(mood);
             Playlist.create({
                 playlist_url: req.body.playlist_url,
                 playlist_name: req.body.playlist_name,

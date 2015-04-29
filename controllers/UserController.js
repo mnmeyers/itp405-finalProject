@@ -16,28 +16,6 @@ module.exports = {
         });
     },
 
-    //get: function(req, res) {
-    //    if(!req.session.user_id){
-    //        return res.redirect(301, '/login');
-    //    }
-    //    User.find(req.session.user_id, function(){
-    //        Playlist.findAll({
-    //            where:{
-    //                user_id: req.session.user_id
-    //            }
-    //        })
-    //    })
-    //        .then(function(user, results) {
-    //            console.log('profile view rendered');
-    //            console.log(results);
-    //            console.log(user);
-    //            res.render('profile', {
-    //                title: 'Profile',
-    //                user: user,
-    //                playlists: results
-    //            });
-    //        });
-    //},
     get: function(req, res) {
         if(!req.session.user_id){
             return res.redirect(301, '/login');
@@ -84,7 +62,7 @@ module.exports = {
         }).fail(function(error){
             req.session.sessionFlash = {
                 type: 'danger',
-                message: 'You must put in a proper email!'
+                message: 'You must put in a valid email!'
             };
             res.redirect(301, '/profile');
         })
