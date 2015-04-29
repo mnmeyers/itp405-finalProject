@@ -18,33 +18,25 @@ module.exports = {
             {
                 replacements: ['%' + req.query.mood_name + '%'],
                 type: sequelize.QueryTypes.SELECT
-
             }).then(function (results) {
                 res.render('playlists', {
                     playlists: results
                 });
-
             }).done(function (err) {
                 console.log(err);
             });
     },
+
     create: function(req, res) {
         if(!req.session.user_id){
             return res.redirect(301, '/login');
         }
-
-
         Mood.findOrCreate({
             mood_name: req.body.mood_name,
             where: {
                 mood_name: req.body.mood_name
             }
         }).spread(function(mood, created) {
-            console.log("\n\n MOOOOOOOOD:");
-            console.log(mood);
-            console.log("\n\n MOOD ID>");
-            console.log(mood.id);
-
             Playlist.create({
                 playlist_url: req.body.playlist_url,
                 playlist_name: req.body.playlist_name,
@@ -57,16 +49,11 @@ module.exports = {
             };
             res.redirect(301, '/playlist');
         }).fail(function(error){
-
-
-            console.log('\n\n\n\n\n yayyyyyy we faillled \n\n\n\n\n\n');
-            console.log(error);
             req.session.sessionFlash = {
                 type: 'danger',
                 message: 'You must fill out all the fields!'
             };
             res.redirect(301, '/playlist');
-
         });
     }
 };
