@@ -59,7 +59,7 @@ module.exports = {
                 message: 'You successfully updated your profile!'
             };
             res.redirect(301, '/profile');
-        }).fail(function(error){
+        }).catch(function(error){
             req.session.sessionFlash = {
                 type: 'danger',
                 message: 'You must put in a valid email!'

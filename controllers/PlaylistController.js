@@ -49,7 +49,7 @@ module.exports = {
                 message: 'You successfully created a playlist!'
             };
             res.redirect(301, '/playlist');
-        }).fail(function(error){
+        }).catch(function(error){
             req.session.sessionFlash = {
                 type: 'danger',
                 message: 'You must fill out all the fields!'

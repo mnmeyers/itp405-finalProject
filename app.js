@@ -60,7 +60,7 @@ app.post('/login', UserController.create);
 
 app.get('/logout', function(req, res){
     delete req.session.user_id;
-    res.redirect(301, "/login");
+    res.redirect(301, "/");
 });
 
 app.get('/profile', UserController.get);
