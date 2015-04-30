@@ -38,6 +38,7 @@ module.exports = {
             }
         }).spread(function(mood, created) {
             console.log(mood);
+            console.log(mood.id);
             Playlist.create({
                 playlist_url: req.body.playlist_url,
                 playlist_name: req.body.playlist_name,
@@ -50,6 +51,7 @@ module.exports = {
             };
             res.redirect(301, '/playlist');
         }).catch(function(error){
+            console.log(error);
             req.session.sessionFlash = {
                 type: 'danger',
                 message: 'You must fill out all the fields!'
