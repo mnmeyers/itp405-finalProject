@@ -14,18 +14,15 @@ var sessionStore = new session.MemoryStore;
 var app = express();
 
 app.set('view engine', 'ejs');
-
+//caching:
 app.use(express.static(__dirname + '/public', {maxAge: 21600000}));
-
 app.use(session({
     secret: 'keyboard cat',
     saveUninitialized: true,
     resave: true,
     maxAge:3600000}));
 app.use('/bower_components',  function(){});//breaks without this empty function...
-
 app.use(bodyParser.json());
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(flash());
@@ -64,35 +61,6 @@ app.post('/login', UserController.create);
 app.get('/logout', function(req, res){
     delete req.session.user_id;
     res.redirect(301, "/");
-});
-
-
-app.post('/playlist', function(req, res){
-    if(!req.session.user_id){
-        return res.redirect(301, '/login');
-    } else {
-        req.session.sessionFlash = {
-            type: 'success',
-            message: 'You have successfully created a playlist!'
-        };
-        res.redirect(301, '/playlist');
-    }
-    Playlist.create({
-        playlist_url: req.body.playlist_url,
-        playlist_name: req.body.playlist_name
-       // mood_id: Mood.id
-    });
-    Mood.findOrCreate({
-        mood_name: req.body.mood_name,
-        where: {
-            mood_name: req.body.mood_name
-        }
-
-    }).then(function() {
-        // you can now access the newly created task via the variable task
-        res.render('createPlaylist',{
-        });
-    })
 });
 
 app.get('/profile', UserController.get);

@@ -67,12 +67,12 @@ module.exports = {
             res.redirect(301, '/profile');
         })
             .then(function(){
-            User.find(req.session.user_id).then(function(user){
-                res.render('profile', {
-                    title: 'Profile',
-                    user: user
+                User.find(req.session.user_id).then(function(user){
+                    res.render('profile', {
+                        title: 'Profile',
+                        user: user
+                    });
                 });
             });
-        });
     }
 };

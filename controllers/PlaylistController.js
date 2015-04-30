@@ -1,6 +1,7 @@
 var Playlist = require('./../models/Playlist');
 var Sequelize = require('sequelize');
 var sequelize = require('./../config/sequelize');
+var Mood = require('./../models/Mood');
 module.exports = {
     view:  function(req, res, err) {
         if(!req.session.user_id){
@@ -27,7 +28,7 @@ module.exports = {
     },
 
     create: function(req, res) {
-       if(!req.session.user_id){
+        if(!req.session.user_id){
             return res.redirect(301, '/login');
         }
         Mood.findOrCreate({
