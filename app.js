@@ -1,10 +1,10 @@
 var express = require('express');
 var ejs = require('ejs');
-var session = require('express-session');
+//var session = require('express-session');
 var bodyParser = require('body-parser');
 var logger = require('morgan');
 var flash = require('express-flash');
-var cookieParser = require('cookie-parser');
+//var cookieParser = require('cookie-parser');
 var PlaylistController = require('./controllers/PlaylistController');
 var UserController = require('./controllers/UserController');
 var User = require('./models/User');
@@ -13,14 +13,22 @@ var User = require('./models/User');
 var app = express();
 
 app.set('view engine', 'ejs');
-//caching:
-app.use(cookieParser('keyboard cat'));
-app.use(express.static(__dirname + '/public', {maxAge: 21600000}));
+
+//app.use(cookieParser('keyboard cat'));
+var session = require('cookie-session');
 app.use(session({
-    secret: 'keyboard cat',
-    saveUninitialized: false,
-    resave: false
+    keys: ['koala'],
+    name: 'koala',
+    httpOnly: false,
+    maxAge: 21600000
 }));
+//caching:
+app.use(express.static(__dirname + '/public', {maxAge: 21600000}));
+//app.use(session({
+//    secret: 'keyboard cat',
+//    saveUninitialized: false,
+//    resave: false
+//}));
 
 //var sessionStore = new session.MemoryStore;
 
@@ -62,12 +70,7 @@ app.get('/login', function(req, res){
 app.post('/login', UserController.create);
 
 app.get('/logout', function(req, res){
-    //delete req.session.user_id;
-    req.session.destroy(function(err) {
-        // cannot access session here
-        res.redirect(301, "/");
-    });
-
+    res.redirect(301, "/");
 });
 
 app.get('/profile', UserController.get);
