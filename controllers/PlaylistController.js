@@ -7,7 +7,6 @@ module.exports = {
         if(!req.session.user_id){
             return res.redirect(301, '/login');
         }
-        console.log('playlist view rendered');
         res.render('createPlaylist', {
             title: 'Create Playlist'
         });
@@ -22,7 +21,7 @@ module.exports = {
                 res.render('playlists', {
                     playlists: results
                 });
-            }).done(function (err) {
+            }).catch(function (err) {
                 console.log(err);
             });
     },

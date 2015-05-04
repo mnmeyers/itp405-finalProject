@@ -35,9 +35,9 @@ module.exports = {
             }, function(err){
 // HANDLE PLAYLIST NOT FOUND ERROR
             });
-        }, function(err){
+             }, function(err){
 // HANDLE USER NOT FOUND ERROR
-        });
+             });
     },
 
     update: function(req, res) {
