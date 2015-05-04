@@ -1,30 +1,25 @@
 var express = require('express');
 var ejs = require('ejs');
 var bodyParser = require('body-parser');
-var session = require('express-session');
-var cookieParser = require('cookie-parser');
 var flash = require('express-flash');
 var PlaylistController = require('./controllers/PlaylistController');
 var UserController = require('./controllers/UserController');
-var User = require('./models/User');
-var Playlist = require('./models/Playlist');
-var Mood = require('./models/Mood');
-var sessionStore = new session.MemoryStore;
 
 var app = express();
 
 app.set('view engine', 'ejs');
+var session = require('cookie-session');
+app.use(session({
+    keys: ['koala'],
+    name: 'koala',
+    httpOnly: false,
+    maxAge: 21600000
+}));
 //caching:
 app.use(express.static(__dirname + '/public', {maxAge: 21600000}));
-app.use(session({
-    secret: 'keyboard cat',
-    saveUninitialized: true,
-    resave: true,
-    maxAge:3600000}));
 app.use('/bower_components',  function(){});//breaks without this empty function...
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(flash());
 // Custom flash middleware
 app.use(function(req, res, next){
@@ -59,7 +54,6 @@ app.get('/login', function(req, res){
 app.post('/login', UserController.create);
 
 app.get('/logout', function(req, res){
-    delete req.session.user_id;
     res.redirect(301, "/");
 });
 
