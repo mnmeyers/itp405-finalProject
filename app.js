@@ -33,21 +33,24 @@ app.use(function(req, res, next){
 //routes:
 app.get('/', function(req, res){
     res.render('index', {
-        title: 'Home'
+        title: 'Home',
+        user_id: req.session.user_id || 0
     });
 });
 
 app.get('/callback', function(req, res){
     console.log('callback view rendered');
     res.render('callback', {
-        title: 'callback'
+        title: 'callback',
+        user_id: req.session.user_id || 0
     });
 });
 
 app.get('/login', function(req, res){
     console.log('login view rendered');
     res.render('login', {
-        title: 'Login'
+        title: 'Login',
+        user_id: req.session.user_id || 0
     });
 });
 

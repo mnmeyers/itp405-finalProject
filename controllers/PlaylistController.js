@@ -9,7 +9,8 @@ module.exports = {
         }
         console.log('playlist view rendered');
         res.render('createPlaylist', {
-            title: 'Create Playlist'
+            title: 'Create Playlist',
+            user_id: req.session.user_id
         });
     },
 

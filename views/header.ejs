@@ -28,15 +28,20 @@
             <li>
                 <a href="/playlist">Create Playlist</a>
             </li>
+            <% if (user_id.valueOf() > 0) { %>
             <li>
                 <a href="/profile">Profile</a>
             </li>
-            <li>
-                <a href="/login">Login</a>
-            </li>
+
             <li>
                 <a href="/logout" id="logout">Logout</a>
             </li>
+           <% } else { %>
+            <li>
+                <a href="/login">Login</a>
+            </li>
+
+            <% } %>
         </ul>
     </div>
     <!-- /#sidebar-wrapper -->

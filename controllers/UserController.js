@@ -30,6 +30,7 @@ module.exports = {
                 res.render('profile', {
                     title: 'Profile',
                     user: user,
+                    user_id: req.session.user_id,
                     playlists: playlists
                 });
             }, function(err){
@@ -70,7 +71,8 @@ module.exports = {
             User.find(req.session.user_id).then(function(user){
                 res.render('profile', {
                     title: 'Profile',
-                    user: user
+                    user: user,
+                    user_id: req.session.user_id
                 });
             });
         });
