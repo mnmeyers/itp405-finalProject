@@ -37,8 +37,11 @@
                     <table class="table">
                         <tbody>
                         <% if (playlists.length > 0) { %>
+                        <th><i class="fa fa-heartbeat"></i> Mood</th>
+                        <th>Title</th>
                         <% playlists.forEach(function(playlist) { %>
                         <tr>
+                            <td><a class="mood" href="/playlists?mood_name=<%= playlist.mood_name %>"><%= playlist.mood_name %></a></td>
                             <td><%= playlist.playlist_name %></td>
                             <td><%- playlist.playlist_url %></td>
                         </tr>

@@ -21,7 +21,8 @@ module.exports = {
                 type: sequelize.QueryTypes.SELECT
             }).then(function (results) {
                 res.render('playlists', {
-                    playlists: results
+                    playlists: results,
+                    user_id: req.session.user_id || 0
                 });
             }).done(function (err) {
                 console.log(err);
@@ -50,7 +51,7 @@ module.exports = {
                 type: 'success',
                 message: 'You successfully created a playlist!'
             };
-            res.redirect(301, '/playlist');
+            res.redirect(301, '/profile');
         }).catch(function(error){
             console.log(error);
             req.session.sessionFlash = {

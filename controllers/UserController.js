@@ -22,11 +22,11 @@ module.exports = {
             return res.redirect(301, '/login');
         }
         User.find(req.session.user_id).then(function(user){
-            Playlist.findAll({
-                where:{
-                    user_id: req.session.user_id
-                }
-            }).then(function(playlists){
+            Playlist.sequelize.query('select playlist_name, playlists.id, playlist_url, mood_name from playlists, moods where moods.id = playlists.mood_id and user_id = ?',
+                {
+                    replacements: [req.session.user_id],
+                    type: sequelize.QueryTypes.SELECT
+                }).then(function(playlists){
                 console.log(playlists);
                 res.render('profile', {
                     title: 'Profile',
