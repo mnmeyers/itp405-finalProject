@@ -1,5 +1,6 @@
 var User = require('./../models/User');
 var Playlist = require('./../models/Playlist');
+var Mood = require('./../models/Mood');
 var Sequelize = require('sequelize');
 var sequelize = require('./../config/sequelize');
 module.exports = {
